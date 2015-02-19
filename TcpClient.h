@@ -26,8 +26,8 @@ private:
 	int _port;
 public:
 	TcpClient(string ip, int port) : _ip(ip), _port(port) { };
-	virtual ~TcpClient();
-	NetworkStream Connect();
+	~TcpClient();
+	int Connect(NetworkStream *netStream);
 };
 
 #endif /* TCPCLIENT_H_ */

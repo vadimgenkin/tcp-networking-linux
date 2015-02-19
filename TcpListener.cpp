@@ -13,7 +13,6 @@ TcpListener::~TcpListener() {
 
 int TcpListener::Start()
 {
-	//create socket
 	_sd = socket(AF_INET, SOCK_STREAM, 0); //AF_INET - ipv4, SOCK_STREAM - tcp, 0 - ip protocol
 
 	if(_sd == -1)
@@ -40,11 +39,19 @@ int TcpListener::Start()
 	return 0;
 }
 
-NetworkStream TcpListener::AcceptTcpClient()
+int TcpListener::AcceptTcpClient(NetworkStream *netStream)
 {
 	struct sockaddr_in addr;
 
 	socklen_t addr_len = sizeof(addr);
-	int newsockfd = accept(_sd, (struct sockaddr *) &addr, &addr_len);
-	return NetworkStream{newsockfd}; //in case of error newsockfd < 0
+	int new_sd = accept(_sd, (struct sockaddr *) &addr, &addr_len);
+
+	if(new_sd < 0)
+	{
+		perror("failed in accept()");
+		return -1;
+	}
+
+	netStream = new NetworkStream{new_sd};
+	return 0;
 }

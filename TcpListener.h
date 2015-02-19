@@ -8,6 +8,7 @@
 #ifndef TCPLISTENER_H_
 #define TCPLISTENER_H_
 
+#include <stdio.h>
 #include <unistd.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -24,7 +25,7 @@ public:
 	TcpListener(int port) : _port{port}, _sd{0} { };
 	~TcpListener();
 	int Start();
-	NetworkStream AcceptTcpClient();
+	int AcceptTcpClient(NetworkStream *netStream);
 };
 
 #endif /* TCPLISTENER_H_ */

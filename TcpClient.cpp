@@ -7,12 +7,15 @@
 
 #include "TcpClient.h"
 
-NetworkStream TcpClient::Connect()
+int TcpClient::Connect(NetworkStream *netStream)
 {
 	_sd = socket(AF_INET, SOCK_STREAM, 0); //AF_INET - ipv4, SOCK_STREAM - tcp, 0 - ip protocol
 
 	if(_sd == -1)
-		return NetworkStream{-1};
+	{
+		perror("error opening socket()");
+		return -1;
+	}
 
     struct sockaddr_in addr;
     memset(&addr, 0, sizeof(addr));
@@ -23,17 +26,18 @@ NetworkStream TcpClient::Connect()
     if(addr.sin_addr.s_addr == INADDR_NONE)
     {
     	perror("bad ip address");
-    	return NetworkStream{-1};
+    	return -1;
     }
 
     int result = connect(_sd, (struct sockaddr*)&addr, sizeof(addr));
     if(result == -1)
     {
     	perror("failed in connect()");
-    	return NetworkStream{-1};
+    	return -1;
     }
 
-    return NetworkStream{_sd};
+    netStream = new NetworkStream{_sd};
+    return 0;
 }
 
 
