@@ -42,5 +42,5 @@ int TcpClient::Connect(NetworkStream *netStream)
 
 
 TcpClient::~TcpClient() {
-	// TODO Auto-generated destructor stub
+	if(_sd != -1) close(_sd);
 }

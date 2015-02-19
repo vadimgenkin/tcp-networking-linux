@@ -25,7 +25,7 @@ private:
 	string _ip;
 	int _port;
 public:
-	TcpClient(string ip, int port) : _ip(ip), _port(port) { };
+	TcpClient(string ip, int port) : _sd(-1), _ip(ip), _port(port) { };
 	~TcpClient();
 	int Connect(NetworkStream *netStream);
 };
