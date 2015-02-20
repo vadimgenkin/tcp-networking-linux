@@ -7,7 +7,7 @@
 
 #include "TcpClient.h"
 
-int TcpClient::Connect(NetworkStream *netStream)
+int TcpClient::Connect(NetworkStream **netStream)
 {
 	_sd = socket(AF_INET, SOCK_STREAM, 0); //AF_INET - ipv4, SOCK_STREAM - tcp, 0 - ip protocol
 
@@ -36,7 +36,7 @@ int TcpClient::Connect(NetworkStream *netStream)
     	return -1;
     }
 
-    netStream = new NetworkStream{_sd};
+    *netStream = new NetworkStream{_sd};
     return 0;
 }
 

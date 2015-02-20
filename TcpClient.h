@@ -27,7 +27,7 @@ private:
 public:
 	TcpClient(string ip, int port) : _sd(-1), _ip(ip), _port(port) { };
 	~TcpClient();
-	int Connect(NetworkStream *netStream);
+	int Connect(NetworkStream **netStream);
 };
 
 #endif /* TCPCLIENT_H_ */

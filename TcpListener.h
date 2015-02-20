@@ -25,7 +25,7 @@ public:
 	TcpListener(int port) : _port{port}, _sd{0} { };
 	~TcpListener();
 	int Start();
-	int AcceptTcpClient(NetworkStream *netStream);
+	int AcceptTcpClient(NetworkStream **netStream);
 };
 
 #endif /* TCPLISTENER_H_ */
