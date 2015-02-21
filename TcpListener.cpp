@@ -39,7 +39,8 @@ int TcpListener::Start()
 	return 0;
 }
 
-int TcpListener::AcceptTcpClient(NetworkStream **netStream)
+//int TcpListener::AcceptTcpClient(NetworkStream **netStream)
+int TcpListener::AcceptTcpClient(std::unique_ptr<NetworkStream> &netStream)
 {
 	struct sockaddr_in addr;
 
@@ -52,6 +53,7 @@ int TcpListener::AcceptTcpClient(NetworkStream **netStream)
 		return -1;
 	}
 
-	*netStream = new NetworkStream(new_sd);
+	netStream.reset(new NetworkStream{new_sd});
+	//*netStream = new NetworkStream(new_sd);
 	return 0;
 }

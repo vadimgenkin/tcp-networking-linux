@@ -9,6 +9,7 @@
 #define TCPCLIENT_H_
 
 #include <iostream>
+#include <memory>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -27,7 +28,7 @@ private:
 public:
 	TcpClient(string ip, int port) : _sd(-1), _ip(ip), _port(port) { };
 	~TcpClient();
-	int Connect(NetworkStream **netStream);
+	int Connect(unique_ptr<NetworkStream> &netStream);
 };
 
 #endif /* TCPCLIENT_H_ */
