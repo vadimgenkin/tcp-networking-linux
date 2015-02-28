@@ -42,5 +42,8 @@ int TcpClient::Connect(unique_ptr<NetworkStream> &netStream)
 
 
 TcpClient::~TcpClient() {
-	if(_sd != -1) close(_sd);
+	if(_sd != -1)
+	{
+		close(_sd);
+	}
 }

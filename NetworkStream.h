@@ -9,6 +9,7 @@
 #define NETWORKSTREAM_H_
 
 #include <unistd.h>
+#include <memory>
 
 class NetworkStream {
 private:

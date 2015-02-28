@@ -8,7 +8,10 @@
 #include "TcpListener.h"
 
 TcpListener::~TcpListener() {
-	if(_sd > 0) close(_sd); //close the socket if it was opened
+	if(_sd > 0)
+	{
+		close(_sd); //close the socket if it was opened
+	}
 }
 
 int TcpListener::Start()
@@ -16,7 +19,9 @@ int TcpListener::Start()
 	_sd = socket(AF_INET, SOCK_STREAM, 0); //AF_INET - ipv4, SOCK_STREAM - tcp, 0 - ip protocol
 
 	if(_sd == -1)
+	{
 		return -1;
+	}
 
     struct sockaddr_in addr;
     memset(&addr, 0, sizeof(addr));
@@ -26,20 +31,24 @@ int TcpListener::Start()
     int optval = 1;
     int result = setsockopt(_sd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof optval);
     if(result != 0)
+    {
     	return result;
+    }
 
     result = bind(_sd, (struct sockaddr*)&addr, sizeof(addr));
-    if (result != 0) {
+    if (result != 0)
+    {
     	return result;
     }
     result = listen(_sd, 5);
     if (result != 0)
+    {
     	return result;
+    }
 
 	return 0;
 }
 
-//int TcpListener::AcceptTcpClient(NetworkStream **netStream)
 int TcpListener::AcceptTcpClient(std::unique_ptr<NetworkStream> &netStream)
 {
 	struct sockaddr_in addr;
